@@ -1,0 +1,15 @@
+.slick-dots li{
+ background: var(--bs-gray-200);
+ border-radius: 50%;
+ height: 4px;
+}
+
+
+.slick-dots li.slick-active{
+ background: var(--bs-red);
+}
+.slick-dots li button:before{
+  content: none;
+  width: 10px;
+  background: red;
+}

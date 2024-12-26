@@ -1,0 +1,46 @@
+.event{
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  max-width: 1200px;
+  margin: auto;
+}
+.event_btn{
+  display: flex;
+  gap: 10px;
+}
+.event_btn button{
+  padding: 10px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 16px;
+  border: 1px solid var(--bs-red);
+  color: var(--bs-red);
+}
+.event_btn button.active{
+  border: 1px solid var(--bs-red);
+  background: var(--bs-red);
+  color: var(--bs-white);
+
+}
+.event_card{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+
+@media screen and (max-width : 450px){
+  .event{
+    margin: 0px 20px;
+  }
+  .event_card{
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 20px;
+  }
+  .event_btn button{
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+}

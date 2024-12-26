@@ -1,0 +1,183 @@
+.find{
+  background: var( --bs-white);
+}
+.findhero{
+  background: var(--bs-gray-200);
+  padding: 40px 0px;
+  margin-bottom: 30px;
+}
+.findhead{
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.list{
+  display: flex;
+  gap: 10px;
+  font-size: 14px;
+  align-items: center;
+  text-transform: capitalize;
+  color: var(--bs-gray-700);
+}
+.list span{
+  transition: 0.5s;
+  cursor: pointer;
+}
+.list span:hover{
+  color: var(--bs-red);
+}
+.search_list{
+  max-width: 900px;
+  margin: auto;
+  border-radius: 40px;
+  display: flex;
+  gap: 30px;
+  font-size: 14px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
+  background: var(--bs-gray-200);
+}
+.search_list input{
+  padding: 10px 30px;
+  font-size: 14px;
+  flex: 1;
+  border-right:  1px solid var(--bs-gray-400);
+}
+.search_list .bt{
+  padding: 15px 24px;
+  background: var(--bs-red);
+  color: var(--bs-white);
+  border-radius: 40px;
+  font-size: 14px;
+}
+.show_select{
+  position: relative;
+  flex: 1;
+}
+.show_select button{
+  font-size: 14px;
+  color: var(--bs-gray-700);
+  cursor: pointer;
+}
+.open{
+  position: absolute;
+  padding: 20px;
+  z-index: 10;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: var(--bs-white);
+  color: var(--bs-gray-700);
+  font-size: 14px;
+  border: 1px solid var(--bs-gray-200);
+}
+.open p{
+  cursor: pointer;
+  transition: 0.5s all;
+}
+.open p:hover{
+  color: var(--bs-red);
+}
+.find_search{
+  max-width: 1200px;
+  margin: auto;
+}
+.order{
+  display: flex;
+  align-items: flex-end;
+  margin: 30px 0px;
+  position: relative;
+  flex-direction: column;
+}
+.order button{
+  width: fit-content;
+  padding: 8px 20px;
+  cursor: pointer;
+  color: var(--bs-gray-700);
+  border-radius: 40px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.order button:hover{
+  background-color: var(--bs-gray-200);
+}
+.default{
+  padding: 10px 20px;
+  background: var(--bs-white);
+  border: 1px solid var(--bs-gray-200);
+  display: flex;
+  top: 40px;
+  flex-direction: column;
+  position: absolute;
+  z-index: 10;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--bs-gray-700);
+
+}
+.default p{
+  cursor: pointer;
+  transition: 0.5s all;
+}
+.default p:hover{
+  color: var(--bs-red);
+}
+.find_results{
+  display: grid;
+  max-width: 1200px;
+  margin: auto;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.pagination{
+  display: flex;
+  justify-content: center;
+  margin: 30px 0px; 
+  gap: 20px;
+}
+.pagination button.active {
+  font-weight: bold;
+  padding: 10px 14px;
+  background-color: var(--bs-red);
+  color: white;
+}
+
+.pagination button{
+  padding: 10px 14px;
+  background-color: var(--bs-gray-200);
+  color: var(--bs-gray-700);
+  cursor: pointer;
+}
+
+@media screen and (max-width : 400px) {
+  .findhead{
+    display: flex;
+    flex-direction: column;
+  }
+  .find_results{
+    display: grid;
+    margin: 0px 20px;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 20px;
+  }
+  .order{
+    display: flex;
+    align-items: flex-start;
+    margin: 30px 20px;
+    position: relative;
+    flex-direction: column;
+  }
+  .search_list{
+    width: 100%;
+    margin: 0px 20px;
+  }
+  .search_list button{
+    width: 100%;
+  }
+}

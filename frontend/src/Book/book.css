@@ -1,0 +1,128 @@
+.complete{
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  padding: 40px 0px;
+}
+.complete h1{
+  color: var(--bs-gray-700);
+  font-weight: 500;
+}
+.completes{
+  display: flex;
+  gap: 10px;
+  font-size: 14px;
+}
+.completes span:nth-child(2){
+  color: var(--bs-gray-700);
+}
+.bookin{
+  background: var(--bs-white);
+  padding: 40px 0px;
+}
+.bookings{
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  gap: 20px;
+}
+.purchase{
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.purchase h2{
+  font-size: 20px;
+  color: var(--bs-gray-700);
+  font-weight: 500;
+}
+.purchase_name{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 15px;
+  color: var(--bs-gray-700);
+}
+.purchase_name input {
+  width: 100%;
+  padding: 12px;
+  border: solid 1px var(--bs-gray-200);
+}
+.purchased{
+  display: flex;
+  gap: 20px;
+  width: 100%;
+}
+.purchased .purchase_name{
+  width: 100%;
+}
+.tick{
+  display: flex;
+  gap: 10px;
+  font-size: 15px;
+  color: var(--bs-gray-700);
+}
+.ticket_dropdown{
+  background: var(--bs-red);
+  padding: 20px;
+  cursor: pointer;
+  color: var(--bs-white);
+  align-items: center;
+  font-size: 15px;
+  display: flex;
+  justify-content: space-between;
+}
+.tick_drop{
+  background: var(--bs-white);
+  border: 1px solid var(--bs-gray-200);
+  padding: 20px;
+  cursor: pointer;
+  font-size: 15px;
+  color: var(--bs-gray-700);
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+.ticket_dropdown .button{
+  width: 30px;
+  height: 30px;
+  background: var(--bs-white);
+  border-radius: 50%;
+  display: flex;
+  color: var(--bs-gray-700);
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.owner_map p{
+  font-size: 15px;
+  color: var(--bs-gray-700);
+}
+
+.buton{
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  color: var(--bs-gray-700);
+  border : solid 1px var(--bs-gray-200);
+  justify-content: center;
+  align-items: center;
+}
+
+.owners{
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  border: solid 1px var(--bs-gray-200);
+}
+.owner_map{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}

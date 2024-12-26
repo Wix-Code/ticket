@@ -1,0 +1,315 @@
+.single {
+  display: flex;
+  max-width: 1200px;
+  margin: auto;
+  gap: 40px;
+}
+
+.first {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.first img {
+  width: 400px;
+}
+
+.global {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.venue {
+  display: flex;
+  gap: 10px;
+  color: var(--bs-gray-700);
+  font-size: 15px;
+}
+
+.conference {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.description {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.description button {
+  padding: 10px 20px;
+  border: 1px solid var(--bs-red);
+  border-radius: 40px;
+  font-size: 15px;
+  cursor: pointer;
+  color: var(--bs-gray-700);
+  background: var(--bs-white);
+}
+
+.descript p {
+  color: var(--bs-gray-700);
+  font-size: 15px;
+  line-height: 26px;
+}
+
+.conference button {
+  padding: 10px 20px;
+  border: 1px solid var(--bs-red);
+  border-radius: 40px;
+  color: var(--bs-gray-700);
+  font-size: 15px;
+  background: var(--bs-white);
+  cursor: pointer;
+}
+
+.conference h1 {
+  color: var(--bs-gray-900);
+}
+
+.ticks {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ticket {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 30px;
+}
+
+.ticket:nth-child(even) {
+  background: var(--bs-white);
+}
+
+.decr {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--bs-gray-700);
+
+}
+
+.incr {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--bs-gray-700);
+}
+
+.decr button {
+  width: 30px;
+  border: 1px solid var(--bs-red);
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  cursor: pointer;
+  justify-content: center;
+  font-size: 10px;
+  align-items: center;
+  background: var(--bs-white);
+}
+
+.locate {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tickets h3,
+.locate h3 {
+  font-weight: 500;
+  color: var(--bs-gray-700);
+  font-size: 20px;
+}
+
+.locate button {
+  display: flex;
+  gap: 10px;
+  padding: 10px 20px;
+  color: var(--bs-gray-700);
+  background: var(--bs-white);
+  border: 1px solid var(--bs-red);
+  border-radius: 40px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.second {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.img{
+  width: 100%;
+  height: 250px;
+  background-position: center;
+  background-size: cover;
+  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.897), rgba(22, 222, 222, 0)), url('./stu1.jpg');
+  padding: 30px;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  color: var(--bs-white);
+  justify-content: flex-end;
+}
+.img p{
+  font-size: 13px;
+  color: var(--bs-white);
+  background: var(--bs-red);
+  padding: 10px 20px;
+  border-radius: 40px;
+  width: fit-content;
+}
+.img span{
+  font-size: 13px;
+}
+.summ {
+  background: var(--bs-white);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.organize {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.vibes{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 30px;
+  background: var(--bs-white);
+}
+.vibes h3{
+  font-size: 18px;
+  color: var(--bs-gray-900);
+}
+.vibes p{
+  color: var(--bs-gray-700);
+  font-size: 15px;
+}
+.vibes hr{
+  width: 100%;
+  height: 1px;
+  background: var(--bs-gray-200);
+}
+.sub{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.subt{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.subt h4{
+  color: var(--bs-gray-900);
+  font-size: 14px;
+}
+.subt p{
+  font-size: 13px;
+  color: var(--bs-gray-700);
+}
+.vibes button{
+  background: var(--bs-red);
+  padding: 15px 0px;
+  cursor: pointer;
+  color: var(--bs-white);
+  width: 100%;
+}
+
+.organize img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.socials {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.by {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.by h3 {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.by span {
+  font-size: 12px;
+}
+
+.summ hr {
+  height: 1px;
+  background: var(--bs-gray-200);
+  width: 100%;
+}
+
+.social {
+  display: flex;
+  gap: 10px;
+  font-size: 12px;
+}
+
+.share {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.share button {
+  padding: 10px 20px;
+  display: flex;
+  gap: 5px;
+  font-size: 12px;
+  border-radius: 40px;
+  border: 1px solid var(--bs-red);
+}
+
+@media screen and (max-width : 400px) {
+  .single{
+    display: flex;
+    flex-direction: column;
+  }
+  .conference{
+    display: flex;
+    flex-direction: column;
+  }
+  .conference h1{
+    font-size: 20px;
+  }
+  .conference button{
+    font-size: 10px;
+  }
+  .venue{
+    font-size: 12px;
+  }
+  .descript p{
+    font-size: 12px;
+  }
+  .tickets h3, .locate h3{
+    font-size: 14px;
+  }
+  .incr{
+    font-size: 12px;
+  }
+}
