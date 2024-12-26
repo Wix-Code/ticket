@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -36,12 +36,12 @@ const Context = (props) => {
   
   const [loading, setLoading] = useState(false)
 
-
-
   const [inputs, setInputs] = useState({
     email: '',
     password: '',
   })
+
+  const [data, setData] = useState([])
 
   const handleChange = (e) => {
     setInputs((prev)=>({...prev,[e.target.name]: e.target.value}))
@@ -55,14 +55,25 @@ const Context = (props) => {
     const res = await axios.post('http://localhost:8800/api/user/login', inputs, {
       withCredentials: true
     });
-    localStorage.setItem('user', JSON.stringify(res.data))
-    navigate('/create')
-    setLoading(false)
-   } catch (error) {
-    console.log(error)
-   }
-
+      localStorage.setItem('user', JSON.stringify(res.data))
+      navigate('/create')
+      setLoading(false)
+    } catch (error) {
+      console.log(error)
+    }
   }
+
+  useEffect(()=>{
+    const fetchData = async () => {
+      const res = await axios.get('http://localhost:8800/api/event',{
+        withCredentials: true
+      })
+      setData(res.data.message)
+      console.log(res.data.message, "message")
+    }
+
+    fetchData()
+  },[setData])
 
   const increase = (itemId) => {
 
@@ -77,7 +88,6 @@ const Context = (props) => {
       )
     );
     //console.log(ticket)
-
   }
 
   const decrease = (itemId) => {
@@ -94,7 +104,7 @@ const Context = (props) => {
   }
 
   const contextValue = {
-    increase, ticket, decrease, submit, handleChange, loading
+    increase, ticket, decrease, data, submit, handleChange, setData, loading
   }
   return (
     <storeContext.Provider value={contextValue}>

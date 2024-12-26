@@ -14,3 +14,15 @@
   line-height: 35px;
   color: var(--bs-gray-700);
 }
+
+@media screen and (max-width : 450px){
+  .host{
+    margin: 0px 20px;
+  }
+  .host h1{
+    font-size: 20px;
+  }
+  .host p{
+    font-size: 16px;
+  }
+}

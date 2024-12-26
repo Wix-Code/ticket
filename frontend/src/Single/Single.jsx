@@ -1,29 +1,42 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { FaCalendarAlt, FaFacebookF, FaFacebookSquare, FaHome, FaMinus, FaPlus, FaStreetView } from "react-icons/fa";
 import './single.css'
 import { FaLocationDot } from 'react-icons/fa6';
 import { storeContext } from '../Context/Context';
 import { Link, useParams } from 'react-router-dom'
+import axios from 'axios';
 
 const Single = () => {
 
-  const { increase, decrease, ticket } = useContext(storeContext)
+  const {id} = useParams()
+  const { increase, decrease, ticket, setData, data } = useContext(storeContext)
 
   
-    const calculateTotal = ticket.reduce((acc, item) => acc + item.quantity * item.price, 0);
-  
+  const calculateTotal = ticket.reduce((acc, item) => acc + item.quantity * item.price, 0);
+   
+  useEffect(()=>{
+    const fetchData = async () => {
+      const res = await axios.get(`http://localhost:8800/api/event/${id}`,{
+        withCredentials: true
+      })
+      setData(res.data.message)
+      console.log(res.data.message, "message")
+    }
 
+    fetchData()
+  },[setData])
   console.log(ticket)
 
+  const tick = data?.ticket?.quantity
 
   return (
     <div className='single'>
       <div className="first">
-        <img src="./pic/stu1.jpg" alt="" />
+        <img src={data?.image} alt="" />
         <div className="global">
           <div className="conference">
-            <h1>Global Emergence Conference</h1>
-            <button>901 tickets remaining</button>
+            <h1>{data?.title}</h1>
+            <button>{tick}</button>
           </div>
           <div className="venue">
             <FaHome />
@@ -44,13 +57,13 @@ const Single = () => {
           <button>Location</button>
         </div>
         <div className="descript">
-          <p>“???? Get ready to ride the Amapiano Waves! ???? Lagos, we’re bringing the hottest beats, electrifying vibes, and unforgettable energy. Don’t miss out on this epic night—let’s make it a wave to remember! ????????”</p>
+          <p>{data?.description}</p>
         </div>
         <div className="tickets">
           <h3>Get Tickets</h3>
           <div className="ticks">
             {
-              ticket.map((item) => {
+              data?.ticket?.map((item) => {
                 return (
                   <div className="ticket" key={item.id}>
                     <div className="incr">
@@ -58,9 +71,9 @@ const Single = () => {
                       <span>{item.price}</span>
                     </div>
                     <div className="decr">
-                      <button disabled={item.quantity === 0} onClick={() => decrease(item)}><FaMinus />
+                      <button disabled={item.quantitySelected === 0} onClick={() => decrease(item)}><FaMinus />
                       </button>
-                      <p>{item.quantity || 0}</p>
+                      <p>{item.quantitySelected || 0}</p>
                       <button onClick={() => increase(item)}><FaPlus />
                       </button>
                     </div>
@@ -83,18 +96,17 @@ const Single = () => {
             <span>Freeborn</span>
           </div>
           <div className="vibes">
-            <h3>S.H.E IGNITES MOMS WORKSHOP 1.0: POWERED BY VIRTUEFIED MOMS GROUP</h3>
+            <h3>{data?.title}</h3>
             <hr />
             <p>Booking Summary</p>
             <hr />
             <div className="sub">
               {
-                ticket
-                .filter((item) => item.quantity > 0)
+                data?.ticket?.filter((item) => item.quantitySelected > 0)
                 .map((item) => (
                   <div className="subt" key={item.id}>
                     <h4>{item.name}</h4>
-                    <p>₦{item.quantity * item.price} <span>x{item.quantity}</span></p>
+                    <p>₦{item.quantitySelected * item.price} <span>x{item.quantitySelected}</span></p>
                   </div>
                 ))
               }

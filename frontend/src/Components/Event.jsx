@@ -1,11 +1,13 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import './event.css'
 import { Data } from '../Data'
 import Card from './Card'
+import { storeContext } from '../Context/Context'
 
 
 const Event = () => {
 
+  const {data} = useContext(storeContext)
   const [click, setClick] = useState('All')
   return (
     <div className="events">
@@ -20,7 +22,7 @@ const Event = () => {
         </div>
         <div className="event_card">
           {
-            Data.filter((item)=> click === "All" ? true : item.cat === click).map((item)=>{
+            data?.filter((item)=> click === "All" ? true : item.cat === click)?.map((item)=>{
               return(
                 <Card key={item.id} item={item} />
               )

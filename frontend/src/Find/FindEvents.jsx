@@ -1,12 +1,13 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import './find.css'
 import { Data } from '../Data'
 import Card from '../Components/Card'
 import { FaAngleDown, FaAngleRight, FaAngleUp } from 'react-icons/fa6'
+import { storeContext } from '../Context/Context'
 
 const FindEvents = () => {
 
-  
+  const { data } = useContext(storeContext)
   const [choose, setChoose] = useState("All")
   const [open, setOpen] = useState(false)
 
@@ -27,10 +28,10 @@ const FindEvents = () => {
   const itemsPerPage = 9; // Adjust items per page as needed
 
   // Calculate total pages
-  const totalPages = Math.ceil(Data.length / itemsPerPage);
+  const totalPages = Math.ceil(data.length / itemsPerPage);
 
   // Paginate data
-  const paginatedData = Data.slice(
+  const paginatedData = data?.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );

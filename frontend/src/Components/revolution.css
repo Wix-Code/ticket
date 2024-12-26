@@ -89,4 +89,10 @@
     grid-template-columns: repeat(1, 1fr);
     gap: 20px;
   }
+  .revolute h1{
+    font-size: 20px;
+  }
+  .revolute p{
+    font-size: 16px;
+  }
 }

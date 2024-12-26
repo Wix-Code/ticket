@@ -8,13 +8,13 @@ const Card = ({item}) => {
   return (
     <div className='card'>
       <div className="card_img">
-        <Link to={`/${item.id}`}>
+        <Link to={`/${item._id}`}>
           <img  src={item.image} alt="" />
         </Link>
         <p className={item.type === "Free" ? "free" : "paid"}>{item.type}</p>
       </div>
       <div className="card_box">
-        <h3>{item.head}</h3>
+        <h3>{item.title}</h3>
         <div className="card_price">
           <p>#{item.price}</p>
           <h3>{item.cat}</h3>
@@ -22,11 +22,11 @@ const Card = ({item}) => {
         <div className="card_date">
           <div className="date">
             <FaCalendar />
-            <span>{item.date}</span>
+            <span>{item.startdate}</span>
           </div>
           <div className="date">
             <IoMdTime className='iod' />
-            <span>{item.time}</span>
+            <span>{item.starttime}</span>
           </div>
         </div>
       </div>
