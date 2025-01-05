@@ -199,12 +199,31 @@ export const selectTicket = async (req,res) => {
 
     if (!ticket) {
       //return res.status(404).send({ success: false, message: 'Ticket type not found' });
-      user.cart.push({userTicket: userTicket, name: name,/* price: price, cat: cat, image: image, quantity : 1, desc: desc*/} )
+      tick.push({userTicket: userTicket, name: name, quantitySelected: 1/* price: price, cat: cat, image: image, quantity : 1, desc: desc*/} )
+      tick.quantity -= 1;
+      event.totalQuantity -= 1;
     }else{
-      ticket.quantity += 1
+      ticket.quantitySelected += 1
     }
 
-    await user.save()
+    const ticketInEvent = event.ticket.find((t) => t.name === name);
+    if (ticketInEvent) {
+      if (ticketInEvent.quantity <= 0) {
+        return res
+          .status(400)
+          .send({ success: false, message: "Tickets sold out" });
+      }
+      ticketInEvent.quantity -= 1; // Reduce available quantity
+    }
+
+    // Reduce event total quantity
+    event.totalQuantity -= 1;
+
+    console.log(event, "event new")
+
+    // Save updated user and event
+    await user.save();
+    await event.save();
 
     return res.status(200).send({ success: true, message: 'Ticket selected', data: user })
 

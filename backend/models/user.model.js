@@ -7,11 +7,11 @@ const userTickets = new mongoose.Schema({
       ref: 'Event',  // This references the User model
       required: true
     },
-    name: { type: String, required: true }// Type Vip, VVIP etc
-  //quantity: { type: Number, required: true, min: 0 },
+    name: { type: String, required: true },// Type Vip, VVIP etc
+    //quantity: { type: Number, required: true, min: 0 },
   //price: { type: Number, required: true, default: 0 },
   //ticketsSold: { type: Number, default: 0, min: 0 },
-  //quantitySelected: { type: Number, default: 0 }
+  quantitySelected: { type: Number, default: 0 }
 });
 
 const userSchema = new mongoose.Schema({

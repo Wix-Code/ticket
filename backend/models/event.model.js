@@ -25,6 +25,7 @@ const eventSchema = new mongoose.Schema({
   starttime: { type: String, required: true },
   endtime: { type: String, required: false },
   image: { type: String, required: true },
+  totalQuantity: { type: Number, required: true, min: 0 },
   ticket: [ticketSchema],
   showRemainingTickets: { type: Boolean, default: false },
   showOrganizerDetails: { type: Boolean, default: false }
