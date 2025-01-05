@@ -21,13 +21,15 @@ const Event = () => {
           <button onClick={()=>setClick('Seminar')} className={click === 'Seminar' ? 'active' : ''}>Seminar</button>
         </div>
         <div className="event_card">
-          {
-            data?.filter((item)=> click === "All" ? true : item.cat === click)?.map((item)=>{
-              return(
-                <Card key={item.id} item={item} />
-              )
-            })
-          }
+        {
+          Array.isArray(data) && data.length > 0
+            ? data.filter((item) => click === "All" ? true : item.cat === click).length > 0
+              ? data.filter((item) => click === "All" ? true : item.cat === click).map((item) => (
+                  <Card key={item.id} item={item} />
+                ))
+              : <h2>No events found for this category.</h2>
+            : <p>No events available.</p>
+        }
         </div>
       </div>
     </div>

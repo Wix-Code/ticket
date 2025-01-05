@@ -126,3 +126,21 @@
   flex-direction: column;
   gap: 20px;
 }
+
+@media screen and (max-width : 400px) {
+  .bookings{
+    display: flex;
+    flex-direction: column;
+    margin: 0px 20px;
+  }
+  .purchased{
+    display: flex;
+    flex-direction: column;
+  }
+  .complete{
+    margin: 0px 20px;
+  }
+  .complete h1{
+    font-size: 20px;
+  }
+}

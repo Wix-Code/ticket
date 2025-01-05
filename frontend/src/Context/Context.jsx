@@ -75,24 +75,26 @@ const Context = (props) => {
     fetchData()
   },[setData])
 
-  const increase = (itemId) => {
+  const increase = async (itemId) => {
 
-    const exist = ticket.find((item) => {
+    const exist = data.ticket.find((item) => {
       return item.id === itemId.id
     })
 
     console.log(exist)
     setTicket(
-      ticket.map(ticket =>
+      data.ticket.map(ticket =>
         ticket.id === itemId.id ? { ...exist, quantity: exist.quantity + 1 } : ticket
       )
     );
+
+    await axios.post(`http://localhost:8800/api/event`)
     //console.log(ticket)
   }
 
   const decrease = (itemId) => {
-    const exist = ticket.find((item) => {
-      return item.id === itemId.id
+    const exist = data.ticket.find((item) => {
+      return item._id === itemId.id
     })
 
     console.log(exist)

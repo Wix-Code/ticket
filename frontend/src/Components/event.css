@@ -33,6 +33,12 @@
 @media screen and (max-width : 450px){
   .event{
     margin: 0px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .event h1{
+    font-size: 20px;
   }
   .event_card{
     display: grid;

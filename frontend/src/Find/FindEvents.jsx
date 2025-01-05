@@ -31,7 +31,7 @@ const FindEvents = () => {
   const totalPages = Math.ceil(data.length / itemsPerPage);
 
   // Paginate data
-  const paginatedData = data?.slice(
+  const paginatedData = Array.isArray(data) && data?.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
@@ -96,7 +96,7 @@ const FindEvents = () => {
       </div>
       <div className="find_results">
         {
-          paginatedData.map((item)=>{
+          Array.isArray(paginatedData) && paginatedData.map((item)=>{
             return (
               <Card item={item} key={item.id} />
             )

@@ -1,15 +1,31 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './book.css'
 import { Link } from 'react-router-dom'
 import { storeContext } from '../Context/Context'
 import {FaPlus, FaMinus} from 'react-icons/fa'
+import axios from 'axios'
 
 const Book = () => {
 
-  const {ticket} = useContext(storeContext)
+  const { data} = useContext(storeContext)
+  const [bookTick, setBookTick] = useState([])
+
+  //console.log(data, "booking")
+
+  useEffect(()=>{
+    const fetchData = async () => {
+      const res = await axios.get('http://localhost:8800/api/event',{
+        withCredentials: true
+      })
+      setBookTick(res.data.message)
+      console.log(res.data.message, "messaging")
+    }
+
+    fetchData()
+  },[setBookTick])
   
   const [drop, setDrop] = useState(false)
-  const calculateTotal = ticket.reduce((acc, item) => acc + item.quantity * item.price, 0);
+  const calculateTotal = data?.ticket?.reduce((acc, item) => acc + item.quantitySelected * item.price, 0);
 
   return (
     <div className='booking'>
@@ -30,11 +46,11 @@ const Book = () => {
           </div>
           <div className="purchased">
             <div className="purchase_name">
-              <label htmlFor="">Full Name</label>
-              <input type="text" />
+              <label htmlFor="">Email</label>
+              <input type="email" />
             </div>
             <div className="purchase_name">
-              <label htmlFor="">Full Name</label>
+              <label htmlFor="">Phone No</label>
               <input type="text" />
             </div>
           </div>
@@ -50,10 +66,10 @@ const Book = () => {
            {
             drop &&  <div className="owners">
             {
-              ticket.filter((item) => item.quantity > 0).map((item) =>{
+              bookTick?.ticket?.filter((item) => item.quantitySelected > 0).map((item) =>{
                 return(
-                  <div className="owner_map">
-                    <p>{item.id}. {item.name} Owner's Detail</p>
+                  <div className="owner_map" key={item._id}>
+                    <p>{item.name} Owner's Detail</p>
                     <div className="purchase_name">
                       <label htmlFor="">Full Name</label>
                       <input type="text" />
@@ -84,21 +100,21 @@ const Book = () => {
         <div className="second">
           <div className="seco">
             <div className="img">
-              <p>Music</p>
-              <span>Freeborn</span>
+              <p>{bookTick?.cat}</p>
+              <span>{data?.venue}</span>
             </div>
             <div className="vibes">
-              <h3>S.H.E IGNITES MOMS WORKSHOP 1.0: POWERED BY VIRTUEFIED MOMS GROUP</h3>
+              <h3>{data?.title}</h3>
               <hr />
               <p>Booking Summary</p>
               <hr />
               <div className="sub">
                 {
-                  ticket.filter((item) => item.quantity > 0)
+                  data?.ticket?.filter((item) => item.quantitySelected > 0)
                   .map((item) => (
-                    <div className="subt" key={item.id}>
+                    <div className="subt" key={item._id}>
                       <h4>{item.name}</h4>
-                      <p>₦{item.quantity * item.price} <span>x{item.quantity}</span></p>
+                      <p>₦{item.quantitySelected * item.price} <span>x{item.quantitySelected}</span></p>
                     </div>
                   ))
                 }

@@ -171,18 +171,44 @@ export const buyTicket = async (req,res) => {
 
 export const selectTicket = async (req,res) => {
 
-  const { ticketType } = req.body;
-  const {id} = req.params
+  const {  userId, userTicket, name} = req.body;
+  const {postId} = req.params
 
   try {
-    const event = await Event.findById(id);
+
+    const user = await User.findById(userId)
+    //.populate("Event");
+    console.log(user, "user")
+
+    if (!user) {
+      return res.status(404).send({ success: false, message: 'User not found' });
+    }
+    const event = await Event.findById(postId);
     console.log(event)
 
     if (!event) {
       return res.status(404).send({ success: false, message: 'Event not found' });
     }
 
-    const ticket = event.ticket.find(t => t.ticketType === ticketType);
+    //const eventId = userTicket.toString()
+
+    const tick = user.cart
+     const ticket = tick.find((t) => t.userTicket === userTicket);
+    console.log(ticket, "ticket")
+
+
+    if (!ticket) {
+      //return res.status(404).send({ success: false, message: 'Ticket type not found' });
+      user.cart.push({userTicket: userTicket, name: name,/* price: price, cat: cat, image: image, quantity : 1, desc: desc*/} )
+    }else{
+      ticket.quantity += 1
+    }
+
+    await user.save()
+
+    return res.status(200).send({ success: true, message: 'Ticket selected', data: user })
+
+    /*const ticket = event.ticket.find(t => t.name === name);
     console.log(ticket)
 
 
@@ -191,16 +217,17 @@ export const selectTicket = async (req,res) => {
     }
 
     // Increase the ticket quantity
+    
     if(ticket.quantity > 0){
-    ticket.quantitySelected += 1;
-    ticket.quantity -= 1
+        ticket.quantitySelected += 1;
+        ticket.quantity -= 1;
 
     await event.save();
 
     return res.status(200).send({ success: true, message: 'Ticket selected', data: event });
     } else {
       return res.status(404).send({ success: false, message: 'Tickets sold out' });
-    }
+    } */
     
   } catch (error) {
     console.error(error);
@@ -211,7 +238,7 @@ export const selectTicket = async (req,res) => {
 export const deSelectTicket = async (req,res) => {
 
   const {id} = req.params
-  const { ticketType } = req.body;
+  const { name } = req.body;
 
   try {
     const event = await Event.findById(id);
@@ -220,16 +247,20 @@ export const deSelectTicket = async (req,res) => {
       return res.status(404).json({ success: false, message: 'Event not found' });
     }
 
-    const ticket = event.ticket.find(t => t.ticketType === ticketType);
+    const ticket = event.ticket.find(t => t.name === name);
 
     if (!ticket) {
       return res.status(404).send({ success: false, message: 'Ticket type not found' });
     }
 
+    console.log(ticket, "ticket")
+
     // Increase the ticket quantity
-    if(ticket.quantity > 0){
-    ticket.quantitySelected -= 1;
-    ticket.quantity += 1;
+    if(ticket.quantitySelected > 0){
+
+      ticket.quantitySelected -= 1;
+      ticket.quantity += 1;  
+
     await event.save();
 
     return res.status(200).send({ success: true, message: 'Ticket deselected', data: event });

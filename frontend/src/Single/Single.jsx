@@ -9,10 +9,51 @@ import axios from 'axios';
 const Single = () => {
 
   const {id} = useParams()
-  const { increase, decrease, ticket, setData, data } = useContext(storeContext)
+  const [addTick, setAddTick] = useState([])
+  const { ticket, setData, data } = useContext(storeContext)
 
+  const increase = async (ticketType) => {
+
+    /*const exist = data?.ticket?.find((item) => {
+      return item._id === item._name
+    })
+
+    console.log(exist, "exists")
+    setData(
+     data?.ticket?.map(ticket =>
+        ticket._id === itemId._id ? { ...exist, quantitySelected: exist.quantitySelected + 1 } : ticket
+      )
+    ); */
+    
+    const res = await axios.post(`http://localhost:8800/api/event/${id}/increase`,{name : ticketType}, {
+      withCredentials : true
+    })
+    setData(res.data.data)
+  }
+
+  const decrease = async (ticketType) => {
+
+    /*const exist = data?.ticket?.find((item) => {
+      return item._id === itemId._id
+    })
+
+    console.log(exist, "exists")
+    setData(
+      data?.ticket?.map(ticket =>
+        ticket._id === itemId._id ? { ...exist, quantitySelected: exist.quantitySelected - 1 } : ticket
+      )
+    );
+ 
+    const name = {
+      name: ticket.name
+    }*/
+    const res = await axios.post(`http://localhost:8800/api/event/${id}/decrease`, {name: ticketType}, {
+      withCredentials : true
+    });
+    setData(res.data.data);
+  }   
   
-  const calculateTotal = ticket.reduce((acc, item) => acc + item.quantity * item.price, 0);
+  const calculateTotal = data?.ticket?.reduce((acc, item) => acc + item.quantitySelected * item.price, 0);
    
   useEffect(()=>{
     const fetchData = async () => {
@@ -24,10 +65,8 @@ const Single = () => {
     }
 
     fetchData()
-  },[setData])
-  console.log(ticket)
-
-  const tick = data?.ticket?.quantity
+  },[setData, id])
+  //console.log(ticket)
 
   return (
     <div className='single'>
@@ -36,15 +75,15 @@ const Single = () => {
         <div className="global">
           <div className="conference">
             <h1>{data?.title}</h1>
-            <button>{tick}</button>
+            <button>901 remaining</button>
           </div>
           <div className="venue">
             <FaHome />
-            <p>Light Nation Auditorium. Ibadan</p>
+            <p>{data?.state}</p>
           </div>
           <div className="venue">
             <FaLocationDot />
-            <p>Former fun factory, Osuntokun, Bodija Ibadan.</p>
+            <p>{data?.venue}</p>
           </div>
           <div className="venue">
             <FaCalendarAlt />
@@ -65,16 +104,16 @@ const Single = () => {
             {
               data?.ticket?.map((item) => {
                 return (
-                  <div className="ticket" key={item.id}>
+                  <div className="ticket" key={item._id}>
                     <div className="incr">
                       <p>{item.name}</p>
                       <span>{item.price}</span>
                     </div>
                     <div className="decr">
-                      <button disabled={item.quantitySelected === 0} onClick={() => decrease(item)}><FaMinus />
+                      <button disabled={item.quantitySelected === 0} onClick={() => decrease(item.name)}><FaMinus />
                       </button>
                       <p>{item.quantitySelected || 0}</p>
-                      <button onClick={() => increase(item)}><FaPlus />
+                      <button onClick={() => increase(item.name)}><FaPlus />
                       </button>
                     </div>
                   </div>
@@ -104,7 +143,7 @@ const Single = () => {
               {
                 data?.ticket?.filter((item) => item.quantitySelected > 0)
                 .map((item) => (
-                  <div className="subt" key={item.id}>
+                  <div className="subt" key={item._id}>
                     <h4>{item.name}</h4>
                     <p>₦{item.quantitySelected * item.price} <span>x{item.quantitySelected}</span></p>
                   </div>

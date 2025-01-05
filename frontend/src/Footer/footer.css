@@ -50,3 +50,12 @@
   font-size: 15px;
   color: var(--bs-gray-700);
 }
+
+@media screen and (max-width : 400px) {
+  .foote{
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    margin: 0px 20px;
+  }
+}

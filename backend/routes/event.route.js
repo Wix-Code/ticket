@@ -29,10 +29,10 @@ router.get("/:id", getSinglePage)
 router.get("/:id/posts", getUsersEvents);
 
 // SELECT TICKET
-router.post("/:id/increase", selectTicket);
+router.post("/:postId/increase", selectTicket);
 
 // DESELECT TICKET
-router.post("/:id/decrease", deSelectTicket);
+router.post("/:postId/decrease", deSelectTicket);
 
 
 export default router
