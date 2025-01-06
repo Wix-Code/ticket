@@ -5,11 +5,11 @@ const userTickets = new mongoose.Schema({
   userTicket: {
       type: mongoose.Schema.Types.ObjectId, 
       ref: 'Event',  // This references the User model
-      required: true
+      
     },
-    name: { type: String, required: true },// Type Vip, VVIP etc
+  name: { type: String, required: true },// Type Vip, VVIP etc
     //quantity: { type: Number, required: true, min: 0 },
-  //price: { type: Number, required: true, default: 0 },
+  price: { type: Number  },
   //ticketsSold: { type: Number, default: 0, min: 0 },
   quantitySelected: { type: Number, default: 0 }
 });

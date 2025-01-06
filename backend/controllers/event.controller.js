@@ -171,14 +171,13 @@ export const buyTicket = async (req,res) => {
 
 export const selectTicket = async (req,res) => {
 
-  const {  userId, userTicket, name} = req.body;
+  const {  userId, userTicket, name, price} = req.body;
   const {postId} = req.params
 
   try {
 
     const user = await User.findById(userId)
-    //.populate("Event");
-    console.log(user, "user")
+   //console.log(user, "user")
 
     if (!user) {
       return res.status(404).send({ success: false, message: 'User not found' });
@@ -190,21 +189,32 @@ export const selectTicket = async (req,res) => {
       return res.status(404).send({ success: false, message: 'Event not found' });
     }
 
+
     //const eventId = userTicket.toString()
 
-    const tick = user.cart
-     const ticket = tick.find((t) => t.userTicket === userTicket);
-    console.log(ticket, "ticket")
+    //const tick = user.cart
+     const ticket = user.cart.find((t) => t.name === name);
+    console.log(userTicket, "ticket")
 
 
-    if (!ticket) {
-      //return res.status(404).send({ success: false, message: 'Ticket type not found' });
-      tick.push({userTicket: userTicket, name: name, quantitySelected: 1/* price: price, cat: cat, image: image, quantity : 1, desc: desc*/} )
-      tick.quantity -= 1;
-      event.totalQuantity -= 1;
+    if (ticket) {
+
+      ticket.quantitySelected += 1;
+
     }else{
-      ticket.quantitySelected += 1
+
+      user.cart.push({
+        name,
+        price,
+        quantitySelected: 1 
+      })
+
+       //tick.quantity -= 1;
+       //event.totalQuantity -= 1;
     }
+
+    console.log(user, "user")
+
 
     const ticketInEvent = event.ticket.find((t) => t.name === name);
     if (ticketInEvent) {
@@ -256,36 +266,72 @@ export const selectTicket = async (req,res) => {
 
 export const deSelectTicket = async (req,res) => {
 
-  const {id} = req.params
-  const { name } = req.body;
+  const {postId} = req.params
+  const {  userId, userTicket, name} = req.body;
 
   try {
-    const event = await Event.findById(id);
+    const user = await User.findById(userId)
+    //console.log(user, "user")
+ 
+     if (!user) {
+       return res.status(404).send({ success: false, message: 'User not found' });
+     }
+     const event = await Event.findById(postId);
+     console.log(event)
+ 
+     if (!event) {
+       return res.status(404).send({ success: false, message: 'Event not found' });
+     }
 
-    if (!event) {
-      return res.status(404).json({ success: false, message: 'Event not found' });
-    }
-
-    const ticket = event.ticket.find(t => t.name === name);
+     const ticket = user.cart.find((t) => t.name === name);
+  
 
     if (!ticket) {
       return res.status(404).send({ success: false, message: 'Ticket type not found' });
     }
 
-    console.log(ticket, "ticket")
+
+    if (ticket.quantitySelected > 0) {
+
+      ticket.quantitySelected -= 1;
+
+    }
+    console.log(user, "user")
+
 
     // Increase the ticket quantity
-    if(ticket.quantitySelected > 0){
+    /*if(ticket.quantitySelected > 0){
 
       ticket.quantitySelected -= 1;
       ticket.quantity += 1;  
+    
 
     await event.save();
 
     return res.status(200).send({ success: true, message: 'Ticket deselected', data: event });
+
+    
     } else {
       return res.status(404).send({ success: false, message: 'Tickets sold out' });
-    }
+    }*/
+
+      const ticketInEvent = event.ticket.find((t) => t.name === name);
+      if (ticketInEvent.quantity > 0) {
+        ticketInEvent.quantity += 1; // Increase available quantity
+      }
+  
+      // Increase event total quantity
+      event.totalQuantity += 1;
+  
+      console.log(event, "event new")
+      console.log(user, "user new")
+  
+      // Save updated user and event
+      await user.save();
+      await event.save();
+  
+      return res.status(200).send({ success: true, message: 'Ticket selected', data: user })
+    
   } catch (error) {
     console.error(error);
     return res.status(500).send({ success: false, message: 'Error deselecting ticket', error });
