@@ -171,7 +171,7 @@ export const buyTicket = async (req,res) => {
 
 export const selectTicket = async (req,res) => {
 
-  const {  userId, userTicket, name, price} = req.body;
+  const {  userId, userTicket, name, price } = req.body;
   const {postId} = req.params
 
   try {

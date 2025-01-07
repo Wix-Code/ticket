@@ -9,7 +9,7 @@ const userTickets = new mongoose.Schema({
     },
   name: { type: String, required: true },// Type Vip, VVIP etc
     //quantity: { type: Number, required: true, min: 0 },
-  price: { type: Number  },
+  price: { type: Number, required : true },
   //ticketsSold: { type: Number, default: 0, min: 0 },
   quantitySelected: { type: Number, default: 0 }
 });
