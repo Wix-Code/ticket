@@ -5,7 +5,7 @@ const ticketSchema = new mongoose.Schema({
   quantity: { type: Number, required: true, min: 0 },
   price: { type: Number, required: true, default: 0 },
   ticketsSold: { type: Number, default: 0, min: 0 },
- // quantitySelected: { type: Number, default: 0 }
+  quantitySelected: { type: Number, default: 0 }
 });
 
 

@@ -9,30 +9,8 @@ export const storeContext = createContext(null)
 const Context = (props) => {
   const navigate = useNavigate()
 
-  const tickets = [
-    {
-      id: 1,
-      name: 'Regular',
-      price: 2000,
-      quantity: 0
-
-    },
-    {
-      id: 2,
-      name: 'VIP',
-      price: 10000,
-      quantity: 0
-
-    },
-    {
-      id: 3,
-      name: 'VVIP',
-      price: 20000,
-      quantity: 0
-    }
-  ]
-
-  const [ticket, setTicket] = useState(tickets);
+  const [token, setToken] = useState("")
+  //const [ticket, setTicket] = useState(tickets);
   
   const [loading, setLoading] = useState(false)
 
@@ -55,11 +33,15 @@ const Context = (props) => {
     const res = await axios.post('http://localhost:8800/api/user/login', inputs, {
       withCredentials: true
     });
+    if(res.data){
+      setToken(res.data.token)
       localStorage.setItem('user', JSON.stringify(res.data))
       navigate('/create')
+    }
       setLoading(false)
     } catch (error) {
       console.log(error)
+      setLoading(false)
     }
   }
 
@@ -75,7 +57,7 @@ const Context = (props) => {
     fetchData()
   },[setData])
 
-  const increase = async (itemId) => {
+  /*const increase = async (itemId) => {
 
     const exist = data.ticket.find((item) => {
       return item.id === itemId.id
@@ -103,10 +85,10 @@ const Context = (props) => {
         ticket.id === itemId.id ? { ...exist, quantity: exist.quantity - 1 } : ticket
       )
     );
-  }
+  }*/
 
   const contextValue = {
-    increase, ticket, decrease, data, submit, handleChange, setData, loading
+    token, data, submit, handleChange, setData, loading
   }
   return (
     <storeContext.Provider value={contextValue}>

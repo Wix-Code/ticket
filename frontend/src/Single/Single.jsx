@@ -10,9 +10,16 @@ const Single = () => {
 
   const {id} = useParams()
   const [addTick, setAddTick] = useState([])
-  const { ticket, setData, data } = useContext(storeContext)
+  const { ticket, setData, data, token } = useContext(storeContext)
 
-  const increase = async (ticketType) => {
+  console.log(data, "data")
+
+  const userData = JSON.parse(localStorage.getItem('user')) || null
+  const user = userData?.info?._id
+  //userid = user?._id
+  console.log(user, "user")
+
+  const increase = async (ticketId) => {
 
     /*const exist = data?.ticket?.find((item) => {
       return item._id === item._name
@@ -24,8 +31,15 @@ const Single = () => {
         ticket._id === itemId._id ? { ...exist, quantitySelected: exist.quantitySelected + 1 } : ticket
       )
     ); */
-    
-    const res = await axios.post(`http://localhost:8800/api/event/${id}/increase`,{name : ticketType}, {
+    const payload = {
+      price: ticketId?.price,
+      name : ticketId?.name,
+      userId : user
+    }
+    const res = await axios.post(`http://localhost:8800/api/event/${id}/increase`,payload, { headers: { 
+      'Authorization': `Bearer ${token}`,  // If you're using Bearer token
+      'Content-Type': 'application/json'
+    },
       withCredentials : true
     })
     setData(res.data.data)
@@ -110,10 +124,10 @@ const Single = () => {
                       <span>{item.price}</span>
                     </div>
                     <div className="decr">
-                      <button disabled={item.quantitySelected === 0} onClick={() => decrease(item.name)}><FaMinus />
+                      <button disabled={item.quantitySelected === 0} onClick={() => decrease(item)}><FaMinus />
                       </button>
                       <p>{item.quantitySelected || 0}</p>
-                      <button onClick={() => increase(item.name)}><FaPlus />
+                      <button onClick={() => increase(item)}><FaPlus />
                       </button>
                     </div>
                   </div>

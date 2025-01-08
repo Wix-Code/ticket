@@ -6,11 +6,17 @@ export const verify = (req,res,next) => {
     return res.status(401).send({success: false, message: "Unauthorised"})
   }
 
-  jwt.verify(token,process.env.JWT_SECRET, (err, user) => {
-    if(err){
-      return res.status(403).send({sucess: false, message: " invalid token"})
-    }
-    req.user = user;
+  try {
+    
+    const decode = jwt.verify(token, process.env.JWT_SECRET)
+
+    req.user = decode.id;
     next();
-  })
+
+    console.log(req.user, "req user")
+    console.log(decode, "decode user")
+  
+    } catch (error) {
+      res.status(500).send({success: false, message: "Invalid token or details"})
+    }
 }

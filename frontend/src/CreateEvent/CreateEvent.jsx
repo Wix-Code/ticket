@@ -1,21 +1,24 @@
-import React, { useEffect,useState } from 'react'
+import React, { useContext, useEffect,useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import Upload from '../Upload.js'
 import './update.css'
 import axios from "axios"
+import { storeContext } from '../Context/Context.jsx';
 
 const CreateEvent = () => {
 
   const navigate = useNavigate()
+  const {token} = useContext(storeContext)
 
   const user = JSON.parse(localStorage.getItem('user')) || null
 
   const userId = user?.data?._id;
+  console.log(token, "token")
 
   
   useEffect(()=>{
     const func = () => {
-      if (!user) {
+      if (!token) {
       navigate('/login');
       }
     }
@@ -62,7 +65,7 @@ const CreateEvent = () => {
       await axios.post("http://localhost:8800/api/event",{
         ...files,
         img:url,
-        user: userId,
+        //user: userId,
       },{withCredentials: true})
       navigate('/')
       

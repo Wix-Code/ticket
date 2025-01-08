@@ -4,12 +4,18 @@ import User from "../models/user.model.js";
 
 
 export const createEvent = async (req,res) => {
-    
+
+  const userId = req.user
+
+  const { ...others} = req.body
   try {
 
     //CREATE AN EVENT
+   if(!userId){
+     return res.status(401).send({ success: false, message: "User not authenticated" });
+   }
 
-    const event = new Event(req.body);
+    const event = new Event({userId, ...others});
     await event.save();
     return res.status(200).send({ success: true, message: "event created", data: event});
 
@@ -171,7 +177,9 @@ export const buyTicket = async (req,res) => {
 
 export const selectTicket = async (req,res) => {
 
-  const {  userId, userTicket, name, price } = req.body;
+  //const userId = req.user
+
+  const { userId,userTicket, name, price } = req.body;
   const {postId} = req.params
 
   try {
@@ -267,7 +275,8 @@ export const selectTicket = async (req,res) => {
 export const deSelectTicket = async (req,res) => {
 
   const {postId} = req.params
-  const {  userId, userTicket, name} = req.body;
+  const userId = req.user
+  const { userTicket, name} = req.body;
 
   try {
     const user = await User.findById(userId)
