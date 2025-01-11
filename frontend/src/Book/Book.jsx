@@ -10,9 +10,19 @@ const Book = () => {
   const { data} = useContext(storeContext)
   const [bookTick, setBookTick] = useState([])
 
+  const single = JSON.parse(localStorage.getItem("single"));
+  const mapTic = single.ticket
+
+  console.log(single, "single")
+  console.log(mapTic, "map")
+  const [ticket, setTicket] = useState(mapTic)
+
+  console.log(ticket, "setticket")
+
+
   //console.log(data, "booking")
 
-  useEffect(()=>{
+  /*useEffect(()=>{
     const fetchData = async () => {
       const res = await axios.get('http://localhost:8800/api/event',{
         withCredentials: true
@@ -22,7 +32,7 @@ const Book = () => {
     }
 
     fetchData()
-  },[setBookTick])
+  },[setBookTick])*/
   
   const [drop, setDrop] = useState(false)
   const calculateTotal = data?.ticket?.reduce((acc, item) => acc + item.quantitySelected * item.price, 0);
@@ -66,10 +76,10 @@ const Book = () => {
            {
             drop &&  <div className="owners">
             {
-              bookTick?.ticket?.filter((item) => item.quantitySelected > 0).map((item) =>{
+              ticket?.filter((item) => item.quantitySelected > 0).map((item) =>{
                 return(
                   <div className="owner_map" key={item._id}>
-                    <p>{item.name} Owner's Detail</p>
+                    <p>{item?.name} Owner's Detail</p>
                     <div className="purchase_name">
                       <label htmlFor="">Full Name</label>
                       <input type="text" />
