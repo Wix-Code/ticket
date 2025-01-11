@@ -31,12 +31,12 @@ const Single = () => {
         ticket._id === itemId._id ? { ...exist, quantitySelected: exist.quantitySelected + 1 } : ticket
       )
     ); */
-    const payload = {
+    /*const payload = {
       price: ticketId?.price,
       name : ticketId?.name,
       userId : user
-    }
-    const res = await axios.post(`http://localhost:8800/api/event/${id}/increase`,payload, { headers: { 
+    }*/
+    const res = await axios.post(`http://localhost:8800/api/event/${id}/increase`, { headers: { 
       'Authorization': `Bearer ${token}`,  // If you're using Bearer token
       'Content-Type': 'application/json'
     },
@@ -75,6 +75,7 @@ const Single = () => {
         withCredentials: true
       })
       setData(res.data.message)
+      localStorage.setItem("single", JSON.stringify(res.data.message))
       console.log(res.data.message, "message")
     }
 
