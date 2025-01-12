@@ -15,7 +15,7 @@ const Single = () => {
   console.log(data, "data")
 
   const userData = JSON.parse(localStorage.getItem('user')) || null
-  const user = userData?.info?._id
+  const user = userData.token
   //userid = user?._id
   console.log(user, "user")
 
