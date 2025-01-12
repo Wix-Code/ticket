@@ -11,6 +11,7 @@ const Register = () => {
     username: '',
     email: '',
     password: '',
+    confirmPassword: '',
   })
 
   const handleChange = (e) => {
@@ -40,12 +41,16 @@ const Register = () => {
           <input type="text" name="username"  onChange={handleChange} />
         </div>
         <div className="log1">
+          <label htmlFor="email">Email</label>
+          <input type="email" name="email"  onChange={handleChange} />
+        </div>
+        <div className="log1">
           <label htmlFor="password">Password</label>
           <input type="password" name="password"  onChange={handleChange} />
         </div>
         <div className="log1">
-          <label htmlFor="email">Email</label>
-          <input type="email" name="email"  onChange={handleChange} />
+          <label htmlFor="password">Confirm Password</label>
+          <input type="password" name="confirmPassword"  onChange={handleChange} />
         </div>
         <button onClick={submit}>Sign In</button>
         <div className="dont">

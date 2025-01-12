@@ -21,23 +21,28 @@ const Single = () => {
 
   const increase = async (ticketId) => {
 
-    /*const exist = data?.ticket?.find((item) => {
-      return item._id === item._name
+    const exist = data?.ticket?.find((item) => {
+      return item._id === ticketId._id
     })
 
     console.log(exist, "exists")
-    setData(
+    /*setData(
      data?.ticket?.map(ticket =>
-        ticket._id === itemId._id ? { ...exist, quantitySelected: exist.quantitySelected + 1 } : ticket
+        ticket._id === ticketId._id ? { ...exist, quantitySelected: exist.quantitySelected + 1 } : ticket
       )
-    ); */
-    /*const payload = {
+    );*/
+    
+
+    const payload = {
       price: ticketId?.price,
       name : ticketId?.name,
-      userId : user
-    }*/
-    const res = await axios.post(`http://localhost:8800/api/event/${id}/increase`,{ticketId}, { headers: { 
-      'Authorization': `Bearer ${token}`,  // If you're using Bearer token
+      quantitySelected : ticketId?.quantitySelected + 1
+    }
+
+    console.log(payload, "payload")
+    const res = await axios.post(`http://localhost:8800/api/event/${id}/increase`, {
+    headers: { 
+      'Authorization': `Bearer ${user}`,  // If you're using Bearer token
       'Content-Type': 'application/json'
     },
       withCredentials : true

@@ -177,15 +177,15 @@ export const buyTicket = async (req,res) => {
 
 export const selectTicket = async (req,res) => {
 
-  //const userId = req.user
+  const userId = req.user
 
-  const { userId,userTicket, name, price } = req.body;
+  const { userTicket, name, price } = req.body;
   const {postId} = req.params
 
   try {
 
     const user = await User.findById(userId)
-   //console.log(user, "user")
+    //console.log(user, "user")
 
     if (!user) {
       return res.status(404).send({ success: false, message: 'User not found' });

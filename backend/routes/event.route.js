@@ -29,7 +29,7 @@ router.get("/:id", getSinglePage)
 router.get("/:id/posts", getUsersEvents);
 
 // SELECT TICKET
-router.post("/:postId/increase", selectTicket);
+router.post("/:postId/increase", verify, selectTicket);
 
 // DESELECT TICKET
 router.post("/:postId/decrease", deSelectTicket);
