@@ -36,7 +36,7 @@ const Single = () => {
       name : ticketId?.name,
       userId : user
     }*/
-    const res = await axios.post(`http://localhost:8800/api/event/${id}/increase`, { headers: { 
+    const res = await axios.post(`http://localhost:8800/api/event/${id}/increase`,{ticketId}, { headers: { 
       'Authorization': `Bearer ${token}`,  // If you're using Bearer token
       'Content-Type': 'application/json'
     },
